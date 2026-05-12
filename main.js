@@ -124,3 +124,5 @@ if (footer) {
   footer.textContent = `Режим: ${status}`;
   footer.style.color = status.includes('Production') ? 'green' : 'orange';
 }
+
+const a =
