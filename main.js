@@ -1,5 +1,41 @@
 /* Import */
 import "./style.css";
+import posthog from 'posthog-js';
+import * as Sentry from "@sentry/browser";
+
+Sentry.init({
+  dsn: "https://e842544185b70acb546638ae9f2d64af@o4511378934857728.ingest.de.sentry.io/4511378939248720",
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
+  ],
+  tracesSampleRate: 1.0,
+  replaysOnErrorSampleRate: 1.0,
+  environment: "development",
+});
+
+Sentry.setUser({
+  id: "42",
+  email: "student@example.com",
+  username: "todo_user",
+  segment: "free_plan",
+});
+
+document.getElementById("break-btn").addEventListener("click", () => {
+  Sentry.addBreadcrumb({
+    message: "Натиснута кнопка Break the world",
+    category: "ui.click",
+    level: "info",
+  });
+  throw new Error("Sentry Test Error: Something went wrong!");
+});
+
+posthog.init('phc_wbMDhJzyLSH9ecDAow46oFZ7pq5PvQZatp3ty3fT6yDQ', {
+  api_host: 'https://us.i.posthog.com',
+  person_profiles: 'identified_only',
+  capture_pageview: true,
+  capture_pageleave: true,
+});
 
 /* Read the local storage */
 if (!localStorage.getItem("todos")) {
