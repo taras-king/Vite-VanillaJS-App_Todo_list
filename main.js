@@ -27,7 +27,7 @@ buildTodoList(Array.from(JSON.parse(localStorage.getItem("todos"))));
 function buildTodoList(todos) {
   const todoList = document.querySelector("#todo-list");
   todoList.innerHTML = "";
-  Array.from(todos).forEach((item, index) => {
+  Array.from(todos).forEach((item) => {
     /* Now create the list items */
     const li = document.createElement("li");
     if (item[1]) {
@@ -41,7 +41,7 @@ function buildTodoList(todos) {
 
   /* Create Close button */
   const todoItems = document.querySelectorAll("li");
-  todoItems.forEach((item, index) => {
+  todoItems.forEach((item) => {
     const closeSpan = document.createElement("span");
     const todoText = document.createTextNode("\u00D7");
     closeSpan.className = "close";
@@ -51,7 +51,7 @@ function buildTodoList(todos) {
 
   /* Remove the clicked item */
   const closeSpans = document.querySelectorAll(".close");
-  closeSpans.forEach((item, index) => {
+  closeSpans.forEach((item) => {
     item.onclick = function () {
       this.parentElement.remove();
     };
@@ -116,4 +116,11 @@ function createNewElement(text) {
       ])
     )
   );
+}
+
+const footer = document.getElementById('app-footer');
+if (footer) {
+  const status = import.meta.env.VITE_APP_STATUS || 'Unknown';
+  footer.textContent = `Режим: ${status}`;
+  footer.style.color = status.includes('Production') ? 'green' : 'orange';
 }
